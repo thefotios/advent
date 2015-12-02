@@ -1,8 +1,6 @@
 # for i in $(cat day2.txt); do echo "$i" | awk -Fx -f day2_2.awk; done | paste -sd+ | bc
 BEGIN {
-  min = 0;
   max = 0;
-  perim = 0;
   volume = 1;
 }
 
