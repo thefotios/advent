@@ -3,7 +3,7 @@
 var EventEmitter = require('events').EventEmitter;
 
 class PromiseExt extends Promise {
-  static map(promises) {
+  static props(promises) {
     let keys = [];
     let values = [];
 
@@ -35,7 +35,7 @@ class PromiseExt extends Promise {
             x[k] = setPromise(promises, definitions, k);
             return x;
           }, {});
-          promises[key] = PromiseExt.map(_promises).then(promise);
+          promises[key] = PromiseExt.props(_promises).then(promise);
         } else {
           // This is a single promise, we should set and return it
           promises[key] = vals;
@@ -50,7 +50,7 @@ class PromiseExt extends Promise {
       return promises;
     }, {});
 
-    return PromiseExt.map(promises);
+    return PromiseExt.props(promises);
   }
 }
 module.exports = PromiseExt;
