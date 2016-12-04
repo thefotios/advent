@@ -1,5 +1,4 @@
-const [,, input, stopAtTwice] = process.argv;
-const fs = require('fs');
+const Puzzle = require('../../libs/puzzle');
 
 const directions = ['N', 'E', 'S', 'W'];
 const orientations = {
@@ -60,17 +59,26 @@ class Turtle {
   }
 }
 
-fs.readFile(input, 'utf-8', (err, data) => {
-  const lines = data.replace('\n', '').split(/,\s+/);
-  const turtle = new Turtle();
-  for (const x of lines) {
-    const [dir, ...val] = x.split('');
-    turtle.turn(dir);
-    turtle.move(Number.parseInt(val.join(''), 10), stopAtTwice);
-    if (turtle.done && stopAtTwice) {
-      console.log('Done', turtle.coords);
-      break;
-    }
-  }
-  console.log(turtle.distance);
+const p = new Puzzle({
+  delimiter: /,\s+/,
 });
+
+const process = stopAtTwice =>
+  ([input]) => {
+    const turtle = new Turtle();
+    for (let i = 0; i < input.length; i += 1) {
+      const x = input[i];
+      const [dir, ...val] = x.split('');
+      turtle.turn(dir);
+      turtle.move(Number.parseInt(val.join(''), 10), stopAtTwice);
+      if (turtle.done && stopAtTwice) {
+        break;
+      }
+    }
+    return turtle.distance;
+  };
+
+p.A = process(false);
+p.B = process(true);
+
+p.run().then(console.log);
