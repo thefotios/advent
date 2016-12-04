@@ -1,4 +1,4 @@
-const Puzzle = require('../../libs/puzzle');
+const Puzzle = require('@thefotios/advent_puzzle');
 
 const directions = ['N', 'E', 'S', 'W'];
 const orientations = {
@@ -82,4 +82,4 @@ const p = new Puzzle({
 });
 
 
-p.run().then(console.log);
+p.run();

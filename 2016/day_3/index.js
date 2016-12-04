@@ -1,4 +1,4 @@
-const Puzzle = require('../../libs/puzzle');
+const Puzzle = require('@thefotios/advent_puzzle');
 
 const validTriangle = (sides) => {
   const [max, ...others] = sides.sort((a, b) => b - a);
@@ -25,6 +25,6 @@ p.B = (data) => {
   return grouped;
 };
 
-p.run()
-.then(data => data.filter(validTriangle).length)
-.then(console.log);
+p.after = data => data.filter(validTriangle).length;
+
+p.run();

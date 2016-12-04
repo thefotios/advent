@@ -1,4 +1,4 @@
-const Puzzle = require('../../libs/puzzle');
+const Puzzle = require('@thefotios/advent_puzzle');
 
 const deltas = {
   U: ['y', 1],
@@ -82,8 +82,10 @@ const p = new Puzzle({
   B: lines => ({ lines, lock: new LockB() }),
 });
 
-p.run().then(({ lines, lock }) => lines.reduce((acc, parts) => {
+p.after = ({ lines, lock }) => lines.reduce((acc, parts) => {
   parts.forEach(x => lock.move(x));
   acc.push(lock.position);
   return acc;
-}, []).join('')).then(console.log);
+}, []).join('');
+
+p.run();
