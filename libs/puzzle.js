@@ -35,12 +35,15 @@ class Puzzle {
   }
 
   set type(type) {
-    if (type === 'A') {
-      this.processor = this.A;
-    } else if (type === 'B') {
-      this.processor = this.B;
-    } else {
-      throw new Error(`Unknown puzzle type ${this.type}`);
+    switch (type.toUpperCase()) {
+      case 'A':
+        this.processor = this.A;
+        break;
+      case 'B':
+        this.processor = this.B;
+        break;
+      default:
+        throw new Error(`Unknown puzzle type ${this.type}`);
     }
   }
 
@@ -48,7 +51,7 @@ class Puzzle {
     const inputCleaner = cleanInput(this);
     return getInput(process.argv)
       .then(({ data, type }) => {
-        this.type = type.toUpperCase();
+        this.type = type;
         return data;
       })
       .then(inputCleaner)
