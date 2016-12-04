@@ -59,11 +59,6 @@ class Turtle {
   }
 }
 
-const p = new Puzzle({
-  delimiter: /,\s+/,
-  singleLine: true,
-});
-
 const process = stopAtTwice =>
   (input) => {
     const turtle = new Turtle();
@@ -79,7 +74,12 @@ const process = stopAtTwice =>
     return turtle.distance;
   };
 
-p.A = process(false);
-p.B = process(true);
+const p = new Puzzle({
+  delimiter: /,\s+/,
+  singleLine: true,
+  A: process(false),
+  B: process(true),
+});
+
 
 p.run().then(console.log);
