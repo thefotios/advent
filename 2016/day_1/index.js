@@ -61,10 +61,11 @@ class Turtle {
 
 const p = new Puzzle({
   delimiter: /,\s+/,
+  singleLine: true,
 });
 
 const process = stopAtTwice =>
-  ([input]) => {
+  (input) => {
     const turtle = new Turtle();
     for (let i = 0; i < input.length; i += 1) {
       const x = input[i];

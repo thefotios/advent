@@ -2,54 +2,57 @@ const fs = require('fs');
 
 const noop = data => data;
 
+const getInput = ([,, input, type = 'A'] = []) => new Promise((resolve, reject) => {
+  fs.readFile(input, 'utf-8', (err, data) => {
+    if (err) { reject(err); }
+    const lines = data.split('\n').filter(x => !!x);
+    resolve({ data: lines, type });
+  });
+});
+
+const cleanInput = ({ delimiter, numeric, singleLine } = {}) => (lines) => {
+  let clean = lines.map(x => x.trim().split(delimiter));
+  if (numeric) {
+    clean = clean.map(x => x.map(y => Number.parseInt(y, 10)));
+  }
+  return singleLine ? clean[0] : clean;
+};
+
 class Puzzle {
   constructor({
     delimiter = /\s+/,
     numeric = false,
+    singleLine = false,
     A = noop,
     B = noop,
   } = {}) {
-    this.numeric = numeric;
     this.delimiter = delimiter;
+    this.numeric = numeric;
+    this.singleLine = singleLine;
 
     this.A = A;
     this.B = B;
   }
 
+  set type(type) {
+    if (type === 'A') {
+      this.processor = this.A;
+    } else if (type === 'B') {
+      this.processor = this.B;
+    } else {
+      throw new Error(`Unknown puzzle type ${this.type}`);
+    }
+  }
+
   run() {
-    return this.getInput()
+    const inputCleaner = cleanInput(this);
+    return getInput(process.argv)
       .then(({ data, type }) => {
         this.type = type.toUpperCase();
-        return this.cleanInput(data);
+        return data;
       })
-      .then((data) => {
-        if (this.type === 'A') {
-          return this.A(data);
-        } else if (this.type === 'B') {
-          return this.B(data);
-        } else {
-          throw new Error(`Unknown puzzle type ${this.type}`);
-        }
-      });
-  }
-
-  cleanInput(lines) {
-    let clean = lines.map(x => x.trim().split(this.delimiter));
-    if (this.numeric) {
-      clean = clean.map(x => x.map(y => Number.parseInt(y, 10)));
-    }
-    return clean;
-  }
-
-  getInput() {
-    return new Promise((resolve, reject) => {
-      const [,, input, type = 'A'] = process.argv;
-      fs.readFile(input, 'utf-8', (err, data) => {
-        if (err) { reject(err); }
-        const lines = data.split('\n').filter(x => !!x);
-        resolve({ data: lines, type });
-      });
-    });
+      .then(inputCleaner)
+      .then(data => this.processor(data));
   }
 }
 
