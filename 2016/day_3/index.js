@@ -27,4 +27,4 @@ p.B = (data) => {
 
 p.run()
 .then(data => data.filter(validTriangle).length)
-.then(result => console.log(result));
+.then(console.log);

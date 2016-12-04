@@ -1,4 +1,3 @@
-const input = require('../../libs/input');
 const Puzzle = require('../../libs/puzzle');
 
 const deltas = {
@@ -87,15 +86,4 @@ p.run().then(({ lines, lock }) => lines.reduce((acc, parts) => {
   parts.forEach(x => lock.move(x));
   acc.push(lock.position);
   return acc;
-}, []).join('')).then(result => console.log(result));
-
-// input.getInput((err, lines, [puzzle = 'A']) => {
-//   const lock = (puzzle.toUpperCase() === 'B') ? new LockB() : new LockA();
-//   const result = lines.reduce((acc, line) => {
-//     const parts = line.split('');
-//     parts.forEach(x => lock.move(x));
-//     acc.push(lock.position);
-//     return acc;
-//   }, []).join('');
-//   console.log(result);
-// });
+}, []).join('')).then(console.log);
