@@ -76,7 +76,6 @@ const process = stopAtTwice =>
 
 const p = new Puzzle({
   delimiter: /,\s+/,
-  singleLine: true,
   A: process(false),
   B: process(true),
 });
