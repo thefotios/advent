@@ -10,25 +10,23 @@ const getInput = ([,, input, type = 'A'] = []) => new Promise((resolve, reject) 
   });
 });
 
-const cleanInput = ({ delimiter, numeric, singleLine } = {}) => (lines) => {
+const cleanInput = ({ delimiter, numeric } = {}) => (lines) => {
   let clean = lines.map(x => x.trim().split(delimiter));
   if (numeric) {
     clean = clean.map(x => x.map(y => Number.parseInt(y, 10)));
   }
-  return singleLine ? clean[0] : clean;
+  return clean.length === 1 ? clean[0] : clean;
 };
 
 class Puzzle {
   constructor({
     delimiter = /\s+/,
     numeric = false,
-    singleLine = false,
     A = noop,
     B = noop,
   } = {}) {
     this.delimiter = delimiter;
     this.numeric = numeric;
-    this.singleLine = singleLine;
 
     this.A = A;
     this.B = B;
