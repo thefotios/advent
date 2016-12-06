@@ -50,5 +50,5 @@ p.B = findPass(({ index, length, pass, val }) => {
   return pass1;
 });
 
-p.run({ data: 'abbhdwsy,2,5', type: 'A' });
-p.run({ data: 'abbhdwsy,2,5', type: 'B' });
+p.run({ data: 'abbhdwsy,8,5', type: 'A' });
+p.run({ data: 'abbhdwsy,8,5', type: 'B' });
