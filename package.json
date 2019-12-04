@@ -9,7 +9,7 @@
   "author": "Fotios Lindiakos <fotioslindiakos@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^3.10.2",
+    "eslint": "^4.18.2",
     "eslint-config-airbnb-base": "^10.0.1",
     "eslint-plugin-import": "^2.2.0"
   },
