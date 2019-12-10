@@ -2,7 +2,16 @@ from contextlib import contextmanager
 from itertools import tee
 from typing import Generator, Iterable, Tuple, TypeVar
 
+from aocd.get import get_day_and_year
+from aocd.models import Puzzle
+
+from lib.opcodes import run as run_opcodes
+
 T = TypeVar("T")
+
+
+day, year = get_day_and_year()
+puzzle = Puzzle(day=day, year=year)
 
 
 def pairwise(iterable: Iterable[T]) -> Iterable[Tuple[T, T]]:
