@@ -12,15 +12,13 @@ def perform(data: Iterable[int]):
     """
     >>> perform([3,0,4,0,99])
     1
-    >>> perform([1,0,3,3,1005,2,10,5,1,0,4,1,99])
-    >>> perform([101,-1,7,7,4,7,1105,11,0,99])
+    >>> perform([1, 0, 3, 3, 1005, 2, 10, 5, 1, 0, 4, 1, 99])
+    0
     """
-    for i in run(data):
-        print(i)
+    run(data)
 
 
 def main():
-    perform([1, 0, 3, 3, 1005, 2, 10, 5, 1, 0, 4, 1, 99])
     perform(data())
 
 
